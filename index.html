@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌸 Lumiher's Echo — Your Safe Space</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <script src="https://htkquhlxvdrjopfxhotu.supabase.co/rest/v1/"></script>
-    <script src="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0a3F1aGx4dmRyam9wZnhob3R1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1MjIyOTUsImV4cCI6MjA5NzA5ODI5NX0.khM75rGVMRIC5s-jTD8Zrw3V0qmOuZI_AADrD9-UaIk"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --blush: #F8E8E8;
@@ -21,14 +20,9 @@
             --gold-light: #F0E6D2;
             --charcoal: #4A4A4A;
             --soft-gray: #8B7E7E;
-            --lace: rgba(255, 255, 255, 0.7);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -42,10 +36,7 @@
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 1;
@@ -54,8 +45,7 @@
 
         .petal {
             position: fixed;
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             background: radial-gradient(circle, var(--rose-pink) 0%, transparent 70%);
             border-radius: 50% 0 50% 50%;
             opacity: 0.3;
@@ -73,13 +63,10 @@
 
         .nav-bar {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
             background: rgba(255, 248, 240, 0.85);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--gold-light);
             padding: 1rem 2rem;
             display: flex;
@@ -99,10 +86,6 @@
             letter-spacing: 1px;
         }
 
-        .logo span {
-            font-size: 1.5rem;
-        }
-
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -117,7 +100,6 @@
             padding: 0.5rem 1rem;
             border-radius: 20px;
             transition: all 0.3s ease;
-            position: relative;
             font-weight: 500;
         }
 
@@ -184,10 +166,8 @@
         .hero h1 em::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
+            bottom: -5px; left: 0;
+            width: 100%; height: 3px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
             border-radius: 2px;
         }
@@ -227,10 +207,8 @@
         .btn-primary::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
             transition: left 0.5s;
         }
@@ -240,9 +218,7 @@
             box-shadow: 0 8px 30px rgba(232, 160, 191, 0.6);
         }
 
-        .btn-primary:hover::before {
-            left: 100%;
-        }
+        .btn-primary:hover::before { left: 100%; }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.8);
@@ -273,29 +249,258 @@
             z-index: 0;
         }
 
-        .deco-1 {
-            width: 400px;
-            height: 400px;
-            top: 10%;
-            right: -100px;
-            animation: pulse 8s infinite ease-in-out;
-        }
-
-        .deco-2 {
-            width: 300px;
-            height: 300px;
-            bottom: 10%;
-            left: -50px;
-            animation: pulse 10s infinite ease-in-out reverse;
-        }
+        .deco-1 { width: 400px; height: 400px; top: 10%; right: -100px; animation: pulse 8s infinite ease-in-out; }
+        .deco-2 { width: 300px; height: 300px; bottom: 10%; left: -50px; animation: pulse 10s infinite ease-in-out reverse; }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.3; }
             50% { transform: scale(1.1); opacity: 0.5; }
         }
 
+        /* ═══════════════════════════════════════════════════════════════
+           ✨ WRITE POPUP — HIDDEN BY DEFAULT, SHOWS ON CLICK
+           ═══════════════════════════════════════════════════════════════ */
+        .write-popup-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(74, 74, 74, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 2rem;
+        }
+
+        .write-popup-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .write-popup {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--gold-light);
+            border-radius: 28px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.25);
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .write-popup-overlay.active .write-popup {
+            transform: scale(1) translateY(0);
+        }
+
+        .write-popup::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--rose-pink), var(--gold), var(--rose-pink));
+            border-radius: 28px 28px 0 0;
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .popup-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--soft-gray);
+            cursor: pointer;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 183, 197, 0.2);
+            color: var(--deep-rose);
+            transform: rotate(90deg);
+        }
+
+        .popup-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--soft-gray);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            margin-top: -0.5rem;
+        }
+
+        .mood-bar {
+            display: flex;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .mood-pill {
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            border: 1.5px solid var(--gold-light);
+            background: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            color: var(--soft-gray);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .mood-pill:hover {
+            border-color: var(--rose-pink);
+            background: rgba(255, 183, 197, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .mood-pill.active {
+            background: linear-gradient(135deg, var(--rose-pink), var(--dusty-rose));
+            color: white;
+            border-color: var(--rose-pink);
+            box-shadow: 0 4px 15px rgba(232, 160, 191, 0.3);
+        }
+
+        .name-input-wrap { margin-bottom: 1.2rem; }
+
+        .name-input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 1.5px solid var(--gold-light);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--charcoal);
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .name-input:focus {
+            border-color: var(--rose-pink);
+            box-shadow: 0 0 0 4px rgba(255, 183, 197, 0.15);
+            background: white;
+        }
+
+        .name-input::placeholder {
+            color: var(--soft-gray);
+            font-style: italic;
+        }
+
+        .diary-textarea {
+            width: 100%;
+            min-height: 160px;
+            padding: 1.5rem;
+            border: 2px solid var(--gold-light);
+            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(255,252,248,0.95), rgba(255,248,240,0.95));
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--charcoal);
+            transition: all 0.3s;
+            outline: none;
+            resize: vertical;
+        }
+
+        .diary-textarea:focus {
+            border-color: var(--rose-pink);
+            box-shadow: 0 0 0 4px rgba(255, 183, 197, 0.2), 0 8px 30px rgba(212, 175, 55, 0.1);
+            background: white;
+        }
+
+        .diary-textarea::placeholder {
+            color: var(--soft-gray);
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 0.8rem;
+            color: var(--soft-gray);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .char-counter.warning { color: var(--deep-rose); }
+
+        .submit-post-btn {
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, var(--rose-pink), var(--dusty-rose));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(232, 160, 191, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-post-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(232, 160, 191, 0.5);
+        }
+
+        .submit-post-btn:active { transform: scale(0.98); }
+        .submit-post-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-post-btn.sent {
+            background: linear-gradient(135deg, #90EE90, #7FCD7F);
+            animation: sentPulse 0.5s ease;
+        }
+
+        @keyframes sentPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           FEED SECTION
+           ═══════════════════════════════════════════════════════════════ */
         .feed-section {
-            padding: 4rem 2rem;
+            padding: 2rem 2rem 4rem;
             max-width: 900px;
             margin: 0 auto;
             position: relative;
@@ -359,10 +564,10 @@
             gap: 1.5rem;
         }
 
+        /* New post animation — slides in from top */
         .post-card {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 24px;
             padding: 2rem;
@@ -372,13 +577,28 @@
             overflow: hidden;
         }
 
+        .post-card.new-post {
+            animation: slideInFromTop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid var(--rose-pink);
+            box-shadow: 0 8px 40px rgba(232, 160, 191, 0.3);
+        }
+
+        @keyframes slideInFromTop {
+            0% { 
+                opacity: 0; 
+                transform: translateY(-30px) scale(0.95); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
         .post-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
             background: linear-gradient(180deg, var(--rose-pink), var(--gold));
             opacity: 0;
             transition: opacity 0.3s;
@@ -390,9 +610,7 @@
             border-color: rgba(212, 175, 55, 0.4);
         }
 
-        .post-card:hover::before {
-            opacity: 1;
-        }
+        .post-card:hover::before { opacity: 1; }
 
         .post-header {
             display: flex;
@@ -408,8 +626,7 @@
         }
 
         .avatar {
-            width: 42px;
-            height: 42px;
+            width: 42px; height: 42px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--blush), var(--rose-pink));
             display: flex;
@@ -479,196 +696,59 @@
             transform: scale(1.05);
         }
 
-        .action-btn.liked {
-            color: var(--deep-rose);
-        }
-
-        .action-btn.liked .heart-icon {
-            animation: heartBeat 0.5s ease;
-        }
-
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.3); }
-            50% { transform: scale(1); }
-            75% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(74, 74, 74, 0.3);
-            backdrop-filter: blur(5px);
-            z-index: 200;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .write-modal {
-            background: rgba(255, 252, 248, 0.95);
-            backdrop-filter: blur(25px);
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
             border: 1px solid var(--gold-light);
-            border-radius: 30px;
-            padding: 2.5rem;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+            border-radius: 24px;
             position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
+            overflow: hidden;
         }
 
-        .modal-overlay.active .write-modal {
-            transform: scale(1);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-header h3 {
+        .empty-state::before {
+            content: '"';
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: var(--charcoal);
+            font-size: 6rem;
+            color: var(--rose-pink);
+            opacity: 0.15;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            line-height: 1;
         }
 
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--soft-gray);
-            cursor: pointer;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .close-btn:hover {
-            background: rgba(255, 183, 197, 0.2);
-            color: var(--deep-rose);
-            transform: rotate(90deg);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
+        .empty-state .quote-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
             display: block;
-            font-size: 0.85rem;
-            color: var(--soft-gray);
-            margin-bottom: 0.5rem;
-            font-weight: 500;
         }
 
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid var(--gold-light);
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.8);
+        .empty-state .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--charcoal);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .empty-state .quote-author {
+            font-size: 0.9rem;
+            color: var(--soft-gray);
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .empty-state .invite-text {
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
-            color: var(--charcoal);
-            transition: all 0.3s;
-            outline: none;
-        }
-
-        .form-input:focus, .form-textarea:focus {
-            border-color: var(--rose-pink);
-            box-shadow: 0 0 0 3px rgba(255, 183, 197, 0.2);
-            background: white;
-        }
-
-        .form-textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .category-select {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .cat-option {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            border: 1px solid var(--gold-light);
-            background: rgba(255, 255, 255, 0.6);
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-
-        .cat-option:hover, .cat-option.selected {
-            background: linear-gradient(135deg, var(--rose-pink), var(--dusty-rose));
-            color: white;
-            border-color: var(--rose-pink);
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--rose-pink), var(--dusty-rose));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 1rem;
-            box-shadow: 0 4px 20px rgba(232, 160, 191, 0.3);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(232, 160, 191, 0.5);
-        }
-
-        .fab {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--rose-pink), var(--dusty-rose));
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(232, 160, 191, 0.4);
-            z-index: 50;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .fab:hover {
-            transform: scale(1.1) rotate(90deg);
-            box-shadow: 0 8px 30px rgba(232, 160, 191, 0.6);
+            color: var(--deep-rose);
+            font-weight: 500;
         }
 
         .quote-section {
@@ -781,9 +861,7 @@
             transition: transform 0.3s ease;
         }
 
-        .instagram-link:hover .instagram-icon {
-            transform: scale(1.1);
-        }
+        .instagram-link:hover .instagram-icon { transform: scale(1.1); }
 
         .instagram-handle {
             color: var(--deep-rose);
@@ -806,31 +884,28 @@
             margin: 1rem 0;
         }
 
-        .toast {
+        .fab {
             position: fixed;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--gold-light);
-            border-radius: 50px;
-            padding: 1rem 2rem;
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.2);
-            z-index: 300;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            color: var(--charcoal);
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, var(--rose-pink), var(--dusty-rose));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(232, 160, 191, 0.4);
+            z-index: 50;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: transform 0.4s ease;
-            opacity: 0;
+            justify-content: center;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 8px 30px rgba(232, 160, 191, 0.6);
         }
 
         @media (max-width: 768px) {
@@ -838,8 +913,10 @@
             .nav-links { display: none; }
             .section-header h2 { font-size: 1.8rem; }
             .post-card { padding: 1.5rem; }
-            .write-modal { padding: 1.5rem; }
+            .write-popup { padding: 1.5rem; }
             .instagram-link { padding: 0.8rem 1.8rem; font-size: 0.9rem; }
+            .diary-textarea { min-height: 140px; }
+            .empty-state .quote-text { font-size: 1.2rem; }
         }
 
         ::-webkit-scrollbar {
@@ -881,9 +958,6 @@
 </head>
 <body>
 
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">🌸 Your whisper has been shared!</div>
-
     <!-- Floating Petals -->
     <div class="petal" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
     <div class="petal" style="top: 30%; left: 80%; animation-delay: 3s;"></div>
@@ -918,7 +992,7 @@
                 and no one ever walks alone. 🌸
             </p>
             <div class="hero-actions">
-                <button class="btn-primary" onclick="openModal()">
+                <button class="btn-primary" onclick="openWritePopup()">
                     💌 Write Your Heart
                 </button>
                 <button class="btn-secondary" onclick="scrollToFeed()">
@@ -937,10 +1011,66 @@
         <p class="quote-author">— A gentle reminder for you today 💗</p>
     </div>
 
-    <!-- Main Feed -->
+    <!-- ✨ WRITE POPUP — HIDDEN BY DEFAULT -->
+    <div class="write-popup-overlay" id="writePopupOverlay" onclick="closeWritePopup(event)">
+        <div class="write-popup" onclick="event.stopPropagation()">
+            <div class="popup-header">
+                <h3><span>✍️</span> Write Your Whisper</h3>
+                <button class="close-btn" onclick="closeWritePopup()">✕</button>
+            </div>
+            <p class="popup-subtitle">Your words are safe here. No names, no judgment, only love.</p>
+
+            <!-- Mood Selector -->
+            <div class="mood-bar" id="moodBar">
+                <div class="mood-pill active" data-cat="love" onclick="selectMood(this)">
+                    <span>💗</span> Love
+                </div>
+                <div class="mood-pill" data-cat="healing" onclick="selectMood(this)">
+                    <span>🌷</span> Healing
+                </div>
+                <div class="mood-pill" data-cat="anxiety" onclick="selectMood(this)">
+                    <span>🌙</span> Anxiety
+                </div>
+                <div class="mood-pill" data-cat="growth" onclick="selectMood(this)">
+                    <span>✨</span> Growth
+                </div>
+                <div class="mood-pill" data-cat="daily" onclick="selectMood(this)">
+                    <span>📖</span> Daily
+                </div>
+            </div>
+
+            <!-- Anonymous Name -->
+            <div class="name-input-wrap">
+                <input 
+                    type="text" 
+                    class="name-input" 
+                    id="writeName" 
+                    placeholder="Your anonymous name (optional)... e.g., Moon Child, Rose Whisperer"
+                    maxlength="30"
+                >
+            </div>
+
+            <!-- Main Diary Textarea -->
+            <textarea 
+                class="diary-textarea" 
+                id="writeContent" 
+                placeholder="What's on your heart today? Write freely here... every feeling is welcome, every story is precious. 💌"
+                maxlength="2000"
+                oninput="updateCounter(this)"
+            ></textarea>
+            <div class="char-counter" id="charCounter">0 / 2000</div>
+
+            <!-- Submit Button -->
+            <button class="submit-post-btn" id="submitBtn" onclick="submitPost()">
+                <span>🌸</span> Share my whisper
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Feed — COMMUNITY WHISPERS -->
     <section class="feed-section" id="feed">
         <div class="section-header slide-up">
-            <h2>🌷 Community Whispers</h2>
+            <h2>🌷 Whispers from the Community</h2>
             <p>Real stories from real hearts, shared anonymously with love</p>
         </div>
 
@@ -978,4 +1108,387 @@
     </footer>
 
     <!-- Floating Action Button -->
-    <button class="fab" onclick
+    <button class="fab" onclick="openWritePopup()">✍️</button>
+
+    <script>
+        const SUPABASE_URL = 'https://htkquhlxvdrjopfxhotu.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0a3F1aGx4dmRyam9wZnhob3R1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1MjIyOTUsImV4cCI6MjA5NzA5ODI5NX0.khM75rGVMRIC5s-jTD8Zrw3V0qmOuZI_AADrD9-UaIk';
+
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let selectedCategory = 'all';
+        let newPostCategory = 'love';
+        let allPosts = [];
+
+        // Healing quotes for empty state
+        const healingQuotes = [
+            { text: "You are allowed to be both a masterpiece and a work in progress simultaneously.", author: "Sophia Bush" },
+            { text: "Healing takes time, and asking for help is a courageous step.", author: "Mariska Hargitay" },
+            { text: "Your present circumstances don't determine where you go; they merely determine where you start.", author: "Nido Qubein" },
+            { text: "You don't have to be positive all the time. It's perfectly okay to feel sad, angry, annoyed, frustrated, scared, or anxious.", author: "Lori Deschene" },
+            { text: "The wound is the place where the light enters you.", author: "Rumi" },
+            { text: "You are stronger than you know, braver than you believe, and more loved than you imagine.", author: "A.A. Milne" },
+            { text: "Sometimes the smallest step in the right direction ends up being the biggest step of your life.", author: "Naeem Callaway" },
+            { text: "You are not a drop in the ocean. You are the entire ocean in a drop.", author: "Rumi" }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPosts();
+            setupRealtime();
+        });
+
+        // ═══════════════════════════════════════════════════════════════
+        // ✨ POPUP SHOW / HIDE
+        // ═══════════════════════════════════════════════════════════════
+
+        function openWritePopup() {
+            const overlay = document.getElementById('writePopupOverlay');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            setTimeout(() => {
+                document.getElementById('writeContent').focus();
+            }, 300);
+        }
+
+        function closeWritePopup(event) {
+            if (!event || event.target === document.getElementById('writePopupOverlay')) {
+                const overlay = document.getElementById('writePopupOverlay');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeWritePopup();
+        });
+
+        // ═══════════════════════════════════════════════════════════════
+        // ✨ WRITE SECTION FUNCTIONS
+        // ═══════════════════════════════════════════════════════════════
+
+        function selectMood(element) {
+            document.querySelectorAll('.mood-pill').forEach(pill => pill.classList.remove('active'));
+            element.classList.add('active');
+            newPostCategory = element.dataset.cat;
+        }
+
+        function updateCounter(textarea) {
+            const counter = document.getElementById('charCounter');
+            const length = textarea.value.length;
+            const max = 2000;
+            counter.textContent = `${length} / ${max}`;
+            
+            if (length > max * 0.9) {
+                counter.classList.add('warning');
+            } else {
+                counter.classList.remove('warning');
+            }
+        }
+
+        async function submitPost() {
+            const content = document.getElementById('writeContent').value.trim();
+            const author = document.getElementById('writeName').value.trim() || 'Anonymous Soul 🌸';
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (!content) {
+                alert('💌 Please share something from your heart first.');
+                document.getElementById('writeContent').focus();
+                return;
+            }
+
+            // Change button to "sent" state
+            submitBtn.disabled = true;
+            submitBtn.classList.add('sent');
+            submitBtn.innerHTML = '<span>✨</span> Whisper sent';
+
+            const categoryLabels = {
+                love: '💗 Love',
+                healing: '🌷 Healing',
+                anxiety: '🌙 Anxiety',
+                growth: '✨ Growth',
+                daily: '📖 Daily'
+            };
+
+            const emojis = ['🌸', '🌷', '💗', '✨', '🌙', '🎀', '🦋', '🌹'];
+            const avatar = emojis[Math.floor(Math.random() * emojis.length)];
+
+            const newPost = {
+                author: author,
+                avatar: avatar,
+                category: newPostCategory,
+                category_label: categoryLabels[newPostCategory],
+                content: content,
+                likes: 0,
+                comments: 0
+            };
+
+            try {
+                const { error } = await supabase
+                    .from('posts')
+                    .insert([newPost]);
+
+                if (error) throw error;
+
+                // INSTANTLY inject the new post at the TOP of the feed
+                const postHTML = createPostHTML({
+                    ...newPost,
+                    id: 'temp-' + Date.now(),
+                    created_at: new Date().toISOString(),
+                    isNew: true
+                });
+
+                const container = document.getElementById('postsContainer');
+                
+                // Remove empty state if it exists
+                const emptyState = container.querySelector('.empty-state');
+                if (emptyState) {
+                    emptyState.remove();
+                }
+
+                // Insert at the TOP
+                container.insertAdjacentHTML('afterbegin', postHTML);
+
+                // Add to allPosts array
+                allPosts.unshift({
+                    ...newPost,
+                    id: 'temp-' + Date.now(),
+                    created_at: new Date().toISOString()
+                });
+
+                // Close popup after short delay
+                setTimeout(() => {
+                    closeWritePopup();
+                    
+                    // Clear form
+                    document.getElementById('writeContent').value = '';
+                    document.getElementById('writeName').value = '';
+                    document.getElementById('charCounter').textContent = '0 / 2000';
+                    
+                    // Reset button after 1.5 seconds
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('sent');
+                        submitBtn.innerHTML = '<span>🌸</span> Share my whisper';
+                    }, 1500);
+
+                    // Scroll to feed to see the new post
+                    setTimeout(() => {
+                        scrollToFeed();
+                    }, 200);
+
+                }, 400);
+
+            } catch (err) {
+                console.error('Error submitting post:', err);
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('sent');
+                submitBtn.innerHTML = '<span>🌸</span> Share my whisper';
+                alert('💌 Could not save your whisper. Please try again.\n\nError: ' + err.message);
+            }
+        }
+
+        // Create post HTML for instant injection
+        function createPostHTML(post) {
+            const timeAgo = 'Just now';
+            const newClass = post.isNew ? 'new-post' : '';
+            
+            return `
+                <div class="post-card ${newClass}">
+                    <div class="post-header">
+                        <div class="post-author">
+                            <div class="avatar">${post.avatar || '🌸'}</div>
+                            <div class="author-info">
+                                <span class="author-name">${post.author || 'Anonymous Soul 🌸'}</span>
+                                <span class="post-time">${timeAgo}</span>
+                            </div>
+                        </div>
+                        <span class="post-category">${post.category_label || '💗 Love'}</span>
+                    </div>
+                    <div class="post-content">${escapeHtml(post.content)}</div>
+                    <div class="post-actions">
+                        <button class="action-btn" onclick="likePost('${post.id}')">
+                            <span>🤍</span>
+                            <span>${post.likes || 0}</span>
+                        </button>
+                        <button class="action-btn" onclick="sharePost('${post.id}')">
+                            ✨ Share
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // FEED FUNCTIONS
+        // ═══════════════════════════════════════════════════════════════
+
+        async function loadPosts() {
+            const container = document.getElementById('postsContainer');
+            
+            try {
+                const { data, error } = await supabase
+                    .from('posts')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                allPosts = data || [];
+                renderPosts();
+
+            } catch (err) {
+                console.error('Error loading posts:', err);
+                container.innerHTML = `
+                    <div class="error-msg">
+                        🌸 Unable to load whispers right now. Please refresh the page.<br>
+                        <small style="font-size:0.8rem;opacity:0.7;">${err.message}</small>
+                    </div>
+                `;
+            }
+        }
+
+        function renderPosts() {
+            const container = document.getElementById('postsContainer');
+            const filtered = selectedCategory === 'all' 
+                ? allPosts 
+                : allPosts.filter(p => p.category === selectedCategory);
+            
+            if (filtered.length === 0) {
+                const randomQuote = healingQuotes[Math.floor(Math.random() * healingQuotes.length)];
+                container.innerHTML = `
+                    <div class="empty-state slide-up">
+                        <span class="quote-icon">🌸</span>
+                        <p class="quote-text">"${randomQuote.text}"</p>
+                        <p class="quote-author">— ${randomQuote.author}</p>
+                        <p class="invite-text">💌 Be the first to share your whisper here</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map((post, index) => {
+                const timeAgo = formatTime(post.created_at);
+                return `
+                <div class="post-card slide-up" style="animation-delay: ${index * 0.1}s">
+                    <div class="post-header">
+                        <div class="post-author">
+                            <div class="avatar">${post.avatar || '🌸'}</div>
+                            <div class="author-info">
+                                <span class="author-name">${post.author || 'Anonymous Soul 🌸'}</span>
+                                <span class="post-time">${timeAgo}</span>
+                            </div>
+                        </div>
+                        <span class="post-category">${post.category_label || '💗 Love'}</span>
+                    </div>
+                    <div class="post-content">${escapeHtml(post.content)}</div>
+                    <div class="post-actions">
+                        <button class="action-btn" onclick="likePost('${post.id}')">
+                            <span>🤍</span>
+                            <span>${post.likes || 0}</span>
+                        </button>
+                        <button class="action-btn" onclick="sharePost('${post.id}')">
+                            ✨ Share
+                        </button>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function formatTime(timestamp) {
+            if (!timestamp) return 'Just now';
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = Math.floor((now - date) / 1000);
+
+            if (diff < 60) return 'Just now';
+            if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`;
+            if (diff < 604800) return `${Math.floor(diff / 86400)} days ago`;
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function filterPosts(category) {
+            selectedCategory = category;
+            document.querySelectorAll('.category-tag').forEach(tag => {
+                tag.classList.remove('active');
+                if (tag.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && tag.textContent.includes('All'))) {
+                    tag.classList.add('active');
+                }
+            });
+            renderPosts();
+        }
+
+        async function likePost(id) {
+            try {
+                const { data: post } = await supabase
+                    .from('posts')
+                    .select('likes')
+                    .eq('id', id)
+                    .single();
+
+                const newLikes = (post?.likes || 0) + 1;
+
+                const { error } = await supabase
+                    .from('posts')
+                    .update({ likes: newLikes })
+                    .eq('id', id);
+
+                if (error) throw error;
+                loadPosts();
+
+            } catch (err) {
+                console.error('Error liking post:', err);
+                alert('💌 Could not like this whisper. Please try again.');
+            }
+        }
+
+        async function sharePost(id) {
+            const post = allPosts.find(p => p.id === id);
+            if (post) {
+                const text = `${post.content}\n\n— Shared from Lumiher's Echo 🌸`;
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('✨ Copied to clipboard! Spread the love.');
+                });
+            }
+        }
+
+        function setupRealtime() {
+            supabase
+                .channel('posts')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'posts' }, (payload) => {
+                    console.log('Realtime update:', payload);
+                    loadPosts();
+                })
+                .subscribe();
+        }
+
+        function scrollToFeed() {
+            document.getElementById('feed').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.slide-up, .fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
